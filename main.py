@@ -98,8 +98,7 @@ def extract_info_sync(url: str, proxy: str = None):
     ydl_opts = {
         'quiet': True,
         'no_warnings': True,
-        'skip_download': True,
-        'force_ipv6': True
+        'skip_download': True
     }
     if proxy:
         ydl_opts['proxy'] = proxy
