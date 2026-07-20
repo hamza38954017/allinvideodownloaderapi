@@ -31,5 +31,5 @@ If you want to test the API on your local machine before deploying:
 
 **1. Clone the repository:**
 ```bash
-git clone [https://github.com/hamza38954017/dexomder-api.git](https://github.com/yourusername/dexomder-api.git)
+git clone [https://github.com/hamza38954017/allinvideodownloaderapi.git](https://github.com/yourusername/allinvideodownloaderapi.git)
 cd dexomder-api
