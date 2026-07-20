@@ -22,7 +22,8 @@ YOUTUBE_DOMAINS = [
     "m.youtube.com",
     "music.youtube.com",
     "youtu.be",
-    "youtube-nocookie.com"
+    "youtube-nocookie.com",
+    "instagram.com"
 ]
 
 def is_youtube_url(url: str) -> bool:
