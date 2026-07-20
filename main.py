@@ -8,7 +8,6 @@ import os
 
 app = FastAPI(title="Dexomder Video API")
 
-# Allow requests from any frontend (CORS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,12 +22,10 @@ YOUTUBE_DOMAINS = [
     "m.youtube.com",
     "music.youtube.com",
     "youtu.be",
-    "youtube-nocookie.com",
-    "instagram.com"
+    "youtube-nocookie.com"
 ]
 
 def is_youtube_url(url: str) -> bool:
-    """Checks if the given URL belongs to YouTube."""
     try:
         domain = urlparse(url).netloc.lower()
         return any(yt_domain in domain for yt_domain in YOUTUBE_DOMAINS)
@@ -36,11 +33,6 @@ def is_youtube_url(url: str) -> bool:
         return False
 
 def get_working_proxy() -> str:
-    """
-    Fetches a list of public HTTP proxies and returns the first one that connects successfully.
-    Returns None if no proxy is functional.
-    """
-    # Fetch public HTTP proxies list
     proxy_source = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=5000&country=all&ssl=all&anonymity=all"
     
     try:
@@ -50,11 +42,9 @@ def get_working_proxy() -> str:
         
         proxies = [p.strip() for p in response.text.splitlines() if p.strip()]
         
-        # Test up to 10 proxies for availability
         for raw_proxy in proxies[:10]:
             proxy_url = f"http://{raw_proxy}"
             try:
-                # Quick health check to test connectivity
                 test_res = requests.get(
                     "https://www.google.com", 
                     proxies={"http": proxy_url, "https": proxy_url}, 
@@ -86,7 +76,6 @@ def get_video_info(url: str):
         'skip_download': True
     }
     
-    # If the URL is YouTube, attempt to use a working proxy to bypass IP blocking
     if is_youtube_url(url):
         proxy = get_working_proxy()
         if proxy:
