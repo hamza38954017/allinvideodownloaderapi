@@ -25,7 +25,20 @@ YOUTUBE_DOMAINS = [
     "m.youtube.com",
     "music.youtube.com",
     "youtu.be",
-    "youtube-nocookie.com"
+    "youtube-nocookie.com",
+    "snapchat.com", 
+    "instagram.com", 
+    "ig.me", "mojapp.in", 
+    "tiktok.com",
+    "vm.tiktok.com", 
+    "vt.tiktok.com", 
+    "x.com", 
+    "twitter.com",
+    "t.co", "facebook.com", 
+    "fb.com",
+    "fb.watch", 
+    "fb.me", 
+    "m.facebook.com"
 ]
 
 def is_youtube_url(url: str) -> bool:
