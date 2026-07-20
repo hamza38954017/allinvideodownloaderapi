@@ -10,6 +10,7 @@ import concurrent.futures
 
 app = FastAPI(title="Dexomder Video API")
 
+# Allow requests from any frontend (CORS)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,7 +25,6 @@ YOUTUBE_DOMAINS = [
     "m.youtube.com",
     "music.youtube.com",
     "youtu.be",
-    "instagram.com",
     "youtube-nocookie.com"
 ]
 
@@ -74,7 +74,7 @@ def get_working_proxies(target_count: int = 2, max_check: int = 100) -> list[str
             res = future.result()
             if res:
                 working_proxies.append(res)
-                # Stop checking as soon as 2 working proxies are found
+                # Stop checking as soon as the target count of working proxies is found
                 if len(working_proxies) >= target_count:
                     break
 
@@ -104,9 +104,10 @@ async def fetch_ytdlp_racing(url: str, proxies: list[str]):
         # Fallback to direct request if no proxies were found
         return await loop.run_in_executor(None, extract_info_sync, url, None)
 
-    # Launch parallel tasks (1 task per working proxy IP)
+    # loop.run_in_executor already returns an awaitable Future,
+    # so we do NOT need asyncio.create_task() around it.
     tasks = [
-        asyncio.create_task(loop.run_in_executor(None, extract_info_sync, url, proxy))
+        loop.run_in_executor(None, extract_info_sync, url, proxy)
         for proxy in proxies
     ]
 
