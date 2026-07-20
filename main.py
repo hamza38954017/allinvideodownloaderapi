@@ -20,7 +20,11 @@ app.add_middleware(
 )
 
 YOUTUBE_DOMAINS = [
-    
+    "youtube.com",
+    "www.youtube.com",
+    "m.youtube.com",
+    "music.youtube.com",
+    "youtu.be",
     "youtube-nocookie.com",
     "snapchat.com", 
     "instagram.com", 
